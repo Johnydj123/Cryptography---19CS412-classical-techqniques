@@ -1,15 +1,17 @@
-# Vigenere Cipher
-Vigenere Cipher using with different key values
+
+
+# Rail Fence Cipher
+Rail Fence Cipher using with different key values
 
 # AIM:
 
-To develop a simple C program to implement Vigenere Cipher.
+To develop a simple C program to implement Rail Fence Cipher.
 
 ## DESIGN STEPS:
 
 ### Step 1:
 
-Design of Vigenere Cipher algorithnm 
+Design of Rail Fence Cipher algorithnm 
 
 ### Step 2:
 
@@ -19,87 +21,64 @@ Implementation using C or pyhton code
 
 Testing algorithm with different key values. 
 ALGORITHM DESCRIPTION:
-The Vigenere cipher is a method of encrypting alphabetic text by using a series of different Caesar ciphers based on the letters of a keyword. It is a simple form of polyalphabetic substitution.To encrypt, a table of alphabets can be used, termed a Vigenere square, or Vigenere table. It consists of the alphabet written out 26 times in different rows, each alphabet shifted cyclically to the left compared to the previous alphabet, corresponding to the 26 possible Caesar ciphers. At different points in the encryption process, the cipher uses a different alphabet from one of the rows used. The alphabet at each point depends on a repeating keyword.
-
-
+In the rail fence cipher, the plaintext is written downwards and diagonally on successive "rails" of an imaginary fence, then moving up when we reach the bottom rail. When we reach the top rail, the message is written downwards again until the whole plaintext is written out. The message is then read off in rows.
 
 ## PROGRAM:
+
 PROGRAM:
 ```
-#include <stdio.h>
-#include<conio.h>
-#include <ctype.h>
-#include <string.h>
-void encipher();
-void decipher();
-int main()
+
+#include<stdio.h> #include<string.h> #include<stdlib.h> main()
 {
-int choice;
-while(1)
+int i,j,len,rails,count,code[100][1000]; char str[1000];
+printf("Enter a Secret Message\n"); gets(str);
+len=strlen(str);
+printf("Enter number of rails\n"); scanf("%d",&rails); for(i=0;i<rails;i++)
 {
-printf("\n1. Encrypt Text");
-printf("\n2. Decrypt Text");
-printf("\n3. Exit");
-printf("\n\nEnter Your Choice : ");
-scanf("%d",&choice);
-if(choice == 3)
-exit(0);
-else if(choice == 1)
-encipher();
-else if(choice == 2)
-decipher();
+for(j=0;j<len;j++)
+{
+code[i][j]=0;
+}
+}
+count=0; j=0;
+while(j<len)
+{
+if(count%2==0)
+{
+for(i=0;i<rails;i++)
+{
+//strcpy(code[i][j],str[j]);
+code[i][j]=(int)str[j]; j++;
+}
+
+}
 else
-printf("Please Enter Valid Option.");
-}
-}
-void encipher()
 {
-unsigned int i,j;
-char input[50],key[10];
-printf("\n\nEnter Plain Text: ");
-scanf("%s",input);
-printf("\nEnter Key Value: ");
-scanf("%s",key);
-printf("\nResultant Cipher Text: ");
-for(i=0,j=0;i<strlen(input);i++,j++)
+ 
+for(i=rails-2;i>0;i--)
 {
-if(j>=strlen(key))
-{ j=0;
+code[i][j]=(int)str[j]; j++;
 }
-printf("%c",65+(((toupper(input[i])-65)+(toupper(key[j])-
-65))%26));
-}}
-void decipher()
+}
+
+count++;
+}
+
+for(i=0;i<rails;i++)
 {
-unsigned int i,j;
-char input[50],key[10];
-int value;
-printf("\n\nEnter Cipher Text: ");
-scanf("%s",input);
-printf("\n\nEnter the key value: ");
-scanf("%s",key);
-for(i=0,j=0;i<strlen(input);i++,j++)
+for(j=0;j<len;j++)
 {
-if(j>=strlen(key))
-{ j=0; }
-value = (toupper(input[i])-64)-(toupper(key[j])-64);
-if( value < 0)
-{ value = value * -1;
+if(code[i][j]!=0) printf("%c",code[i][j]);
 }
-printf("%c",65 + (value % 26));
 }
-return 0;
+printf("\n");
 }
 ```
 
 ## OUTPUT:
-OUTPUT :
+OUTPUT:
 
-Simulating Vigenere Cipher
-
-![WhatsApp Image 2024-09-04 at 20 22 34_8ac9d069](https://github.com/user-attachments/assets/8f2c0623-9722-4bdc-a993-83a5f710cce2)
-
+![WhatsApp Image 2024-09-04 at 15 54 50_33addb32](https://github.com/user-attachments/assets/4412e322-b106-4431-83cb-66ee8ec1e76e)
 
 ## RESULT:
 The program is executed successfully
-
